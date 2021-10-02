@@ -23,7 +23,7 @@ export default function Home() {
   const handlePersonType = (type) => {
     if (!data.numIntervention || !data['1.2'] || !data['1.3']) return setError('Vous devez remplir tous les champs.')
     if (data['1.1'] > 110) return setError('L\'âge invalide.')
-    if (!data.numIntervention.match(/\d{2}BE\d{5}/gi)) return setError('Le numéro d\'intervention est invalide.')
+    if (!data.numIntervention.match(/^\d{2}BE\d{5}$/gi)) return setError('Le numéro d\'intervention est invalide.')
     dataChange('1.1', type)
     setPersonType(type)
   }
