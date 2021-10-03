@@ -90,7 +90,7 @@ export function TagsChoice({ choices, label, handleChange }) { // array of { val
     <div className="mt-3 mb-2">
       {label}
     </div>
-    <div className="d-flex">
+    <div className="d-flex flex-wrap">
       {values.map((value, i) => (
         <Chip
           key={i}

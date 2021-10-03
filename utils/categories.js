@@ -164,7 +164,8 @@ export const victimeCategories = [
         name: "7.2",
         label: "Qu'est-ce qui vous a particulièrement déplu lors de l'intervention des pompiers ?",
         choices: [
-          { value: "mise-a-lecart", label: "Mise à l'écart" }, // todo
+          { value: "mise-a-lecart", label: "Mise à l'écart" },
+          { value: "lenteur", label: "Lenteur" }
         ]
       },
       {
@@ -283,7 +284,7 @@ export const temoinCategories = [
       {
         type: "radio",
         name: "5.2",
-        label: "Selon vous, la douleur de la victime a été prise en compte par les sapeurs-pompiers :",
+        label: "Selon vous, la douleur de la victime a été prise en compte par les sapeurs-pompiers ?",
         choices: [
           { value: "oui", label: "Oui" },
           { value: "non", label: "Non" }
@@ -336,7 +337,8 @@ export const temoinCategories = [
         name: "7.2",
         label: "Qu'est-ce qui vous a particulièrement déplu lors de l'intervention des pompiers ?",
         choices: [
-          { value: "mise-a-lecart", label: "Mise à l'écart" }, // todo
+          { value: "mise-a-lecart", label: "Mise à l'écart" },,
+          { value: "lenteur", label: "Lenteur" }
         ]
       },
       {
