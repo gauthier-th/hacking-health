@@ -118,9 +118,8 @@ export const victimeCategories = [
         label: "Pensez-vous que l'intervention des sapeurs-pompiers était indispensable ?",
         choices: [
           { value: "oui", label: "Oui" },
-          { value: "oui", label: "Non" }
-        ],
-        continueIfValue: "oui"
+          { value: "none", label: "Non" }
+        ]
       },
       {
         type: "radio",
@@ -128,7 +127,7 @@ export const victimeCategories = [
         label: "De manière générale, est-ce que le service apporté par les sapeurs-pompiers a été à la hauteur de vos attentes ?",
         choices: [
           { value: "oui", label: "Oui" },
-          { value: "oui", label: "Non" }
+          { value: "none", label: "Non" }
         ]
       },
       {
@@ -151,7 +150,6 @@ export const victimeCategories = [
       {
         type: "tags",
         name: "7.1",
-        selectId: "q7-1",
         label: "Qu'avez-vous particulièrement apprécié lors de l'intervention des pompiers ?",
         choices: [
           { value: "professionnalisme", label: "Professionnalisme" },
@@ -163,7 +161,6 @@ export const victimeCategories = [
       {
         type: "tags",
         name: "7.2",
-        selectId: "q7-2",
         label: "Qu'est-ce qui vous a particulièrement déplu lors de l'intervention des pompiers ?",
         choices: [
           { value: "mise-a-lecart", label: "Mise à l'écart" }, // todo
@@ -251,9 +248,9 @@ export const temoinCategories = [
         name: "4.2",
         label: "Si oui, lequel ?",
         choices: [
-          { value: "oui", label: "Position Latérale de Sécurité" },
-          { value: "non", label: "Massage cardiaque" },
-          { value: "non", label: "Arrêt d'un saignement" }
+          { value: "pls", label: "Position Latérale de Sécurité" },
+          { value: "massage-cardiaque", label: "Massage cardiaque" },
+          { value: "arret-saignement", label: "Arrêt d'un saignement" }
         ]
       },
       {
@@ -324,7 +321,6 @@ export const temoinCategories = [
       {
         type: "tags",
         name: "7.1",
-        selectId: "q7-1",
         label: "Qu'avez-vous particulièrement apprécié lors de l'intervention des pompiers ?",
         choices: [
           { value: "professionnalisme", label: "Professionnalisme" },
@@ -336,7 +332,6 @@ export const temoinCategories = [
       {
         type: "tags",
         name: "7.2",
-        selectId: "q7-2",
         label: "Qu'est-ce qui vous a particulièrement déplu lors de l'intervention des pompiers ?",
         choices: [
           { value: "mise-a-lecart", label: "Mise à l'écart" }, // todo

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
@@ -7,13 +7,10 @@ import FormLabel from '@mui/material/FormLabel'
 import FormGroup from '@mui/material/FormGroup'
 import Checkbox from '@mui/material/Checkbox'
 import Slider from '@mui/material/Slider'
-import Box from '@mui/material/Box'
-import OutlinedInput from '@mui/material/OutlinedInput'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import Select from '@mui/material/Select'
 import Chip from '@mui/material/Chip'
 import TextField from '@mui/material/TextField'
+import Autocomplete from '@mui/material/Autocomplete'
+import Button from '@mui/material/Button'
 
 export function RadioChoice({ choices, handleChange, label }) { // array of { value: string, label: string }
   const [value, setValue] = useState(null)
@@ -81,53 +78,52 @@ export function ScaleChoice({ choices, handleChange, from, to }) { // array of {
   </div>
 }
 
-export function TagsChoice({ choices, selectId, label, handleChange }) { // array of { value: string, label: string }
+export function TagsChoice({ choices, label, handleChange }) { // array of { value: string, label: string }
   const [values, setValues] = useState([])
+  const [selectedValue, setSelectedValue] = useState(null)
+  useEffect(() => {
+    handleChange(values)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [values])
 
-  const inputChange = (event) => {
-    const { target: { value } } = event
-    const newValue = typeof value === 'string' ? value.split(',') : value
-    setValues(newValue)
-    handleChange(newValue)
-  }
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: 48 * 4.5 + 8,
-        width: 250,
-      },
-    },
-  }
-
-  return <div className="d-flex flex-column mt-4">
-    <span>{label}</span>
-    <FormControl className="m-0 mt-3 w-100" sx={{ m: 1, width: 300 }}>
-      <InputLabel id={selectId}>Choisissez votre réponse</InputLabel>
-      <Select
-        labelId={selectId}
-        multiple
-        value={values}
-        onChange={inputChange}
-        input={<OutlinedInput label={label} />}
-        renderValue={(selected) => (
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-            {selected.map((value) => (
-              <Chip key={value} label={value} />
-            ))}
-          </Box>
-        )}
-        MenuProps={MenuProps}
-      >
-        {choices.map((choice, i) => (
-          <MenuItem
-            key={i}
-            value={choice.value}
-          >
-            {choice.label}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
+  return <div className="d-flex flex-column">
+    <div className="mt-3 mb-2">
+      {label}
+    </div>
+    <div className="d-flex">
+      {values.map((value, i) => (
+        <Chip
+          key={i}
+          label={choices.find((choice => choice.value === value)).label}
+          onDelete={() => setValues(values.filter((val) => val !== value))}
+        />
+      ))}
+    </div>
+    <div className="d-flex justify-content-between align-items-center">
+      <Autocomplete
+        className="my-3 me-3"
+        freeSolo
+        blurOnSelect
+        options={choices.filter((choice) => !values.includes(choice.value))}
+        sx={{ width: '100%' }}
+        renderInput={(params) => <TextField {...params} placeholder="Votre choix" />}
+        value={selectedValue}
+        onChange={(e, newValue) => setSelectedValue(newValue)}
+      />
+      <div>
+        <Button
+          variant="outlined"
+          onClick={() => {
+            if (selectedValue) {
+              setValues([...values, selectedValue.value])
+              setSelectedValue(null)
+            }
+          }}
+        >
+          Ajouter
+        </Button>
+      </div>
+    </div>
   </div>
 }
 

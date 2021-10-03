@@ -1,12 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import AccordionItem from '../utils/accordion'
 import { RadioChoice, CheckboxChoice, ScaleChoice, TagsChoice, TextChoice } from '../utils/fields'
 import { victimeCategories, temoinCategories } from '../utils/categories'
+import Footer from '../utils/footer'
 
-export default function Home() {
+export default function Form() {
+  const router = useRouter()
   const [personType, setPersonType] = useState(null) // victime/temoin
   const [error, setError] = useState(null)
   const [data, setData] = useState({})
@@ -20,7 +23,7 @@ export default function Home() {
   const handlePersonType = (type) => {
     if (!data.numIntervention || !data['1.2'] || !data['1.3']) return setError('Vous devez remplir tous les champs.')
     if (data['1.1'] > 110) return setError('L\'âge invalide.')
-    if (!data.numIntervention.match(/^\d{2}BE\d{6}$/gi)) return setError('Le numéro d\'intervention est invalide.')
+    if (!data.numIntervention.match(/^\d{6}$/gi)) return setError('Le numéro d\'intervention est invalide.')
     dataChange('1.1', type)
     setPersonType(type)
   }
@@ -31,6 +34,10 @@ export default function Home() {
       contentType: 'application/json',
       body: JSON.stringify(data)
     })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.ok) router.push('/success')
+      })
   }
 
   return <div className="container">
@@ -44,7 +51,10 @@ export default function Home() {
       {personType === null && <>
         <div className="my-3 d-flex flex-column align-center">
           <span>Numéro d&apos;intervention :</span>
-          <TextField onChange={(e) => dataChange('numIntervention', e.target.value)} label="Exemple : 21BE021020" variant="standard" />
+          <div className="d-flex align-items-end">
+            <span style={{ marginBottom: 6 }}>{new Date().getFullYear().toString().substr(-2)}BE</span>
+            <TextField onChange={(e) => dataChange('numIntervention', e.target.value)} placeholder="123456"inputProps={{ maxLength: 6 }} variant="standard" />
+          </div>
         </div>
         <div className="my-3 d-flex flex-column align-center">
           <span>Âge :</span>
@@ -75,12 +85,7 @@ export default function Home() {
 
     </div>
 
-    <div className="d-flex mt-5 mb-4 border-top border-secondary">
-      <div className="container-80 mt-3 d-flex flex-column justify-content-center align-items-center">
-        <span>Projet créé à l&apos;occasion du HackingHealth 2021 à Besançon.</span>
-        <a href="https://gauthier-thomas.dev/">https://gauthier-thomas.dev</a>
-      </div>
-    </div>
+    <Footer />
   </div>
 }
 
@@ -99,7 +104,7 @@ function FormType({ categories, personType, title, handleSubmit, dataChange, dat
 }
 
 function Category({ category, expanded, setExpanded, dataChange, data }) {
-  const questions = [];
+  const questions = []
   for (let question of category.questions) {
     questions.push(question);
     if (question.continueIfValue && question.continueIfValue !== data[question.name])

@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useRouter } from 'next/router'
 import Button from '@mui/material/Button'
+import Footer from '../utils/footer'
 
 export default function Home() {
   const router = useRouter()
@@ -19,12 +20,7 @@ export default function Home() {
         <img src="/photo.jpg" style={{ width: '80%', maxWidth: '500px' }} />
       </div>
 
-      <div className="d-flex mt-5 mb-4 border-top border-secondary">
-        <div className="container-80 mt-3 d-flex flex-column justify-content-center align-items-center">
-          <span>Projet créé à l&apos;occasion du HackingHealth 2021 à Besançon.</span>
-          <a href="https://gauthier-thomas.dev/">https://gauthier-thomas.dev</a>
-        </div>
-      </div>
+      <Footer />
     </div>
   </>
 }
