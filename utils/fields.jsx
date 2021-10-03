@@ -13,6 +13,7 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import Chip from '@mui/material/Chip'
+import TextField from '@mui/material/TextField'
 
 export function RadioChoice({ choices, handleChange, label }) { // array of { value: string, label: string }
   const [value, setValue] = useState(null)
@@ -57,7 +58,7 @@ export function CheckboxChoice({ choices, handleChange }) { // array of { value:
 
 export function ScaleChoice({ choices, handleChange, from, to }) { // array of { value: string, label: string }
   return <div className="d-flex justify-content-center align-items-center">
-    {from && <span className="mt-3">{from}</span>}
+    {from && <span className="mt-2">{from}</span>}
     {/* <Slider
       className="mt-3"
       defaultValue={3}
@@ -81,7 +82,7 @@ export function ScaleChoice({ choices, handleChange, from, to }) { // array of {
 }
 
 export function TagsChoice({ choices, selectId, label, handleChange }) { // array of { value: string, label: string }
-  const [values, setValues] = React.useState([])
+  const [values, setValues] = useState([])
 
   const inputChange = (event) => {
     const { target: { value } } = event
@@ -89,32 +90,57 @@ export function TagsChoice({ choices, selectId, label, handleChange }) { // arra
     setValues(newValue)
     handleChange(newValue)
   }
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: 48 * 4.5 + 8,
+        width: 250,
+      },
+    },
+  }
 
-  return <FormControl className="mt-3" sx={{ m: 1, width: 300 }}>
-    <InputLabel id={selectId}>Chip</InputLabel>
-    <Select
-      labelId={selectId}
-      multiple
-      value={values}
-      onChange={inputChange}
-      input={<OutlinedInput label={label} />}
-      renderValue={(selected) => (
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-          {selected.map((value) => (
-            <Chip key={value} label={value} />
-          ))}
-        </Box>
-      )}
-      MenuProps={MenuProps}
-    >
-      {choices.map((choice, i) => (
-        <MenuItem
-          key={i}
-          value={choice.value}
-        >
-          {choice.label}
-        </MenuItem>
-      ))}
-    </Select>
-  </FormControl>
+  return <div className="d-flex flex-column mt-4">
+    <span>{label}</span>
+    <FormControl className="m-0 mt-3 w-100" sx={{ m: 1, width: 300 }}>
+      <InputLabel id={selectId}>Choisissez votre réponse</InputLabel>
+      <Select
+        labelId={selectId}
+        multiple
+        value={values}
+        onChange={inputChange}
+        input={<OutlinedInput label={label} />}
+        renderValue={(selected) => (
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+            {selected.map((value) => (
+              <Chip key={value} label={value} />
+            ))}
+          </Box>
+        )}
+        MenuProps={MenuProps}
+      >
+        {choices.map((choice, i) => (
+          <MenuItem
+            key={i}
+            value={choice.value}
+          >
+            {choice.label}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+  </div>
+}
+
+export function TextChoice({ label, handleChange }) {
+  return <div className="d-flex flex-column mt-4">
+    <span>{label}</span>
+    <TextField
+      className="w-100 mt-3"
+      onChange={(e) => handleChange(e.target.value)}
+      placeholder={"Votre réponse"}
+      variant="outlined"
+      multiline
+      minRows={4}
+    />
+  </div>
 }
