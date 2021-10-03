@@ -337,7 +337,7 @@ export const temoinCategories = [
         name: "7.2",
         label: "Qu'est-ce qui vous a particulièrement déplu lors de l'intervention des pompiers ?",
         choices: [
-          { value: "mise-a-lecart", label: "Mise à l'écart" },,
+          { value: "mise-a-lecart", label: "Mise à l'écart" },
           { value: "lenteur", label: "Lenteur" }
         ]
       },
