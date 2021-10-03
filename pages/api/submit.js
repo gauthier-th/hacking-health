@@ -11,7 +11,8 @@ export default function handler(req, res) {
     )
     res.status(200).json({ ok: true })
   }
-  catch {
+  catch (e) {
+    console.error("error while saving form", e)
     res.status(400).json({ ok: false })
   }
 }

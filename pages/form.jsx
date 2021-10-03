@@ -53,7 +53,7 @@ export default function Form() {
           <span>Numéro d&apos;intervention :</span>
           <div className="d-flex align-items-end">
             <span style={{ marginBottom: 6 }}>{new Date().getFullYear().toString().substr(-2)}BE</span>
-            <TextField onChange={(e) => dataChange('numIntervention', e.target.value)} placeholder="123456"inputProps={{ maxLength: 6 }} variant="standard" />
+            <TextField onChange={(e) => dataChange('numIntervention', e.target.value)} placeholder="(6 chiffres)"inputProps={{ maxLength: 6 }} variant="standard" />
           </div>
         </div>
         <div className="my-3 d-flex flex-column align-center">

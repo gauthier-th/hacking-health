@@ -22,7 +22,8 @@ export const victimeCategories = [
           { value: 18, label: "18" },
           { value: 15, label: "15" },
           { value: 112, label: "112" },
-          { value: 17, label: "17" }
+          { value: 17, label: "17" },
+          { value: 114, label: "114" }
         ]
       },
       {
